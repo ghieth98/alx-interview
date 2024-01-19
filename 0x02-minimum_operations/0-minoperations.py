@@ -4,7 +4,7 @@ Module for minOperations
 """
 
 
-def minoperations(n: int) -> int:
+def minOperations(n: int) -> int:
     """
     Returns the fewest number of operations needed to result in exactly `n` `H`
     characters in the file.
@@ -14,12 +14,12 @@ def minoperations(n: int) -> int:
 
     for i in range(2, n + 1):
         if n % i == 0:
-            return minoperations(n // i) + i
+            return minOperations(n // i) + i
 
     return 0
 
 
-def minoperations_v1(n: int) -> int:
+def minOperations_v1(n: int) -> int:
     """
     Returns the fewest number of operations needed to result in exactly `n` `H`
     characters in the file.
@@ -39,7 +39,7 @@ def minoperations_v1(n: int) -> int:
     return ops
 
 
-def minoperations_v2(n: int) -> int:
+def minOperations_v2(n: int) -> int:
     """
     Function to calculate the minimum number of operations needed to get
     'n' 'H' characters in the file.
@@ -65,7 +65,7 @@ def minoperations_v2(n: int) -> int:
     return ops
 
 
-def minoperations_v3(n: int) -> int:
+def minOperations_v3(n: int) -> int:
     """
     Function to calculate the minimum number of operations needed to get
     'n' 'H' characters in the file.
@@ -79,7 +79,7 @@ def minoperations_v3(n: int) -> int:
     for i in range(2, n + 1):
         dp[i] = float('inf')
 
-        for j in range(1, int(i ** 0.5) + 1):
+        for j in range(1, int(i**0.5) + 1):
             if i % j == 0:
                 dp[i] = min(dp[i], dp[j] + i // j, dp[i // j] + j)
 
