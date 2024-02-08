@@ -60,6 +60,7 @@ def recursive_nqueens_solv(grid, row):
 
 
 if __name__ == '__main__':
+    """Input validation"""
     if len(sys.argv) != 2:
         print("Usage: nqueens N")
         sys.exit(1)
