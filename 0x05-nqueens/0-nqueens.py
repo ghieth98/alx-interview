@@ -34,7 +34,6 @@ def is_save(chess_board, row, clm):
 def print_nqueens(chess_board):
     """
     Prints the solution
-
     """
     solution = []
     for i in range(N):
