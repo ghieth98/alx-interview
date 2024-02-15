@@ -1,54 +1,46 @@
 #!/usr/bin/node
-// A script that prints all characters of a Star war movie
-
 const request = require('request');
 
-function getCharacters(movieId) {
+function fetch(url) {
     return new Promise((resolve, reject) => {
-        const url = `https://swapi.dev/api/films/${movieId}/`;
-        request(url, (error, response, body) => {
-            if (error || response.statusCode !== 200) {
-                reject(error || `Failed to fetch data`);
+        request.get(url, (err, response, body) => {
+            if (err) {
+                reject(err);
+            } else if (response.statusCode === 200) {
+                resolve(body);
             } else {
-                const filmData = JSON.parse(body);
-                const characters = filmData.characters;
-                resolve(characters)
+                reject(new Error(`Request failed. Status code: ${response.statusCode}`));
             }
         });
     });
 }
 
-function getCharacterDetails(characterUrl) {
-    return new Promise((resolve, reject) => {
-        request(characterUrl, (error, response, body) => {
-            if (error || response.statusCode !== 200) {
-                reject(error || 'Failed to Fetch Data');
-            } else {
-                const characterData = JSON.parse(body);
-                resolve(characterData.name)
-            }
-        });
-    })
-}
-
-// Print characters of a movie
-async function printMovieCharacters(movieId) {
-    try {
-        const characterUrls = await getMovieCharacters(movieId);
-        for (const characterUrl of characterUrls) {
-            const characterName = await getCharacterDetails(characterUrl);
-            console.log(characterName);
-        }
-    } catch (error) {
-        console.error("Error:", error);
+function fetchCharactersRecursively(charData, index) {
+    if (index >= charData.length) {
+        return;
     }
+
+    const characterUrl = charData[index];
+
+    fetch(characterUrl).then(body => {
+        const character = JSON.parse(body);
+        console.log(character.name);
+        fetchCharactersRecursively(charData, index + 1);
+    }).catch(err => {
+        console.error(err);
+        fetchCharactersRecursively(charData, index + 1);
+    });
 }
 
-// Extract Movie ID from command line argument
-const movieId = process.argv[2];
+function fetchMovieCharacters(movieID) {
+    const apiUrl = `https://swapi-api.alx-tools.com/api/films/${movieID}/`;
 
-if (!movieId || isNaN(movieId)) {
-    console.error("Please provide a valid movie ID as the first argument.");
-} else {
-    printMovieCharacters(movieId);
+    fetch(apiUrl).then(body => {
+        const movieData = JSON.parse(body);
+        const charData = movieData.characters;
+        fetchCharactersRecursively(charData, 0);
+    }).catch(err => console.error(err));
 }
+
+const movieID = process.argv[2];
+fetchMovieCharacters(movieID);
