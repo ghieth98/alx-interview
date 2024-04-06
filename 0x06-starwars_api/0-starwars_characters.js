@@ -8,7 +8,7 @@ const id = process.argv[2];
 const apiURL = `https://swapi-api.alx-tools.com/api/films/${id}`;
 
 // Serial Execution Version
-function getXters (urls, idx) {
+function getXters(urls, idx) {
     request(urls[idx], (err, res, body) => {
         if (!err) {
             console.log(JSON.parse(body).name);
@@ -19,9 +19,9 @@ function getXters (urls, idx) {
     });
 }
 
-// Parallel Exectution Version
-function fetchXters (urls) {
-    const fetchPromises = urls.map((url) => request({ url }));
+// Parallel Execution Version
+function fetchXters(urls) {
+    const fetchPromises = urls.map((url) => request({url}));
 
     Promise.all(fetchPromises)
         .then((responses) => {
