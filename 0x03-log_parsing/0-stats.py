@@ -2,7 +2,6 @@
 """a script that reads stdin line by line and computes metrics:"""
 import sys
 
-
 size = 0
 status_codes = {}
 valid_codes = ['200', '301', '400', '401', '403', '404', '405', '500']
@@ -15,6 +14,7 @@ def print_status_code():
     print("File size:", size)
     for key in sorted(status_codes):
         print(key + ":", status_codes[key])
+
 
 if __name__ == "__main__":
     try:
