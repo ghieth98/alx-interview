@@ -1,6 +1,7 @@
 #!/usr/bin/python3
-"""Module for parsing logs."""
+"""a script that reads stdin line by line and computes metrics:"""
 import sys
+
 
 size = 0
 status_codes = {}
@@ -8,20 +9,18 @@ valid_codes = ['200', '301', '400', '401', '403', '404', '405', '500']
 count = 0
 
 
-def parse_logs():
-    """
-    prints statistics since the beginning of Each 10 lines
+def print_status_code():
+    """prints statistics since the beginning of Each 10 lines
     """
     print("File size:", size)
     for key in sorted(status_codes):
         print(key + ":", status_codes[key])
 
-
 if __name__ == "__main__":
     try:
         for line in sys.stdin:
             if count == 10:
-                parse_logs()
+                print_status_code()
                 count = 1
             else:
                 count += 1
@@ -32,6 +31,7 @@ if __name__ == "__main__":
             except (IndexError, ValueError):
                 pass
             try:
+                # Get second-to-last element as the <status_code>
                 status_code = elements[-2]
                 if status_code in valid_codes:
                     if status_code not in status_codes:
@@ -42,8 +42,8 @@ if __name__ == "__main__":
                         status_codes[status_code] += 1
             except IndexError:
                 pass
-        parse_logs()
+        print_status_code()
 
     except KeyboardInterrupt:
-        parse_logs()
+        print_status_code()
         raise
