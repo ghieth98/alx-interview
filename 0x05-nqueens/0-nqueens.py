@@ -1,12 +1,13 @@
 #!/usr/bin/python3
-""" Module N Queens
+"""n queens puzzle:
 """
 import sys
 
 
-def is_save(chess_board, row, clm):
+def is_secure(chess_board, row, clm):
     """checks if it is safe to place the queen in position depending
     on whether there is another queen in the same column or diagonals
+
     """
     i = row - 1
     j = clm + 1
@@ -15,7 +16,6 @@ def is_save(chess_board, row, clm):
             return False
         i -= 1
         j += 1
-
     i = row - 1
     j = clm - 1
     while i >= 0 and j >= 0:
@@ -31,14 +31,16 @@ def is_save(chess_board, row, clm):
     return True
 
 
-def print_nqueens(chess_board):
-    """
-    Prints the solution
+def print_nqueens(board):
+    """Prints the solution
+
+    Args:
+        board (list of lists): chess board
     """
     solution = []
     for i in range(N):
         for j in range(N):
-            if chess_board[i][j] == 1:
+            if board[i][j] == 1:
                 solution.append([i, j])
 
     print(solution)
@@ -52,15 +54,13 @@ def recursive_nqueens_solv(grid, row):
         return
 
     for col in range(N):
-        if is_save(grid, row, col):
+        if is_secure(grid, row, col):
             grid[row][col] = 1
             recursive_nqueens_solv(grid, row + 1)
-            """backtrack"""
             grid[row][col] = 0
 
 
 if __name__ == '__main__':
-    """Input validation"""
     if len(sys.argv) != 2:
         print("Usage: nqueens N")
         sys.exit(1)
