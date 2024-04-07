@@ -38,7 +38,6 @@ def get_input():
 def is_attacking(pos0, pos1):
     """Checks if the positions of two queens are in an attacking mode.
     """
-    # Check if the queens are in the same row or column
     if (pos0[0] == pos1[0]) or (pos0[1] == pos1[1]):
         return True
     # Check if the queens are in the same diagonal
