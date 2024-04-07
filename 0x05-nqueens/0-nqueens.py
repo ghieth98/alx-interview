@@ -40,7 +40,6 @@ def is_attacking(pos0, pos1):
     """
     if (pos0[0] == pos1[0]) or (pos0[1] == pos1[1]):
         return True
-    # Check if the queens are in the same diagonal
     return abs(pos0[0] - pos1[0]) == abs(pos0[1] - pos1[1])
 
 
