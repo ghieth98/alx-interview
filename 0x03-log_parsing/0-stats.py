@@ -58,7 +58,6 @@ def print_stats(status_counter: Counter, size_counter: Counter) -> None:
     """
     Print statistics about the processed logs.
     Prints the total file size and the count of each status code
-    in ascending order.
     """
     print(f"\nFile size: {size_counter['size']}")
     for status in sorted(status_counter):
