@@ -36,6 +36,7 @@ function fetchMovieCharacters(movieID) {
     const apiUrl = `https://swapi-api.alx-tools.com/api/films/${movieID}/`;
 
     fetch(apiUrl).then(body => {
+        
         const movieData = JSON.parse(body);
         const charData = movieData.characters;
         fetchCharactersRecursively(charData, 0);
